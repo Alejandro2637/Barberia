@@ -9,6 +9,8 @@ class vacacioness extends Model
 {
     use HasFactory;
 
+    protected $table = 'vacaciones';
+
     protected $fillable = [
         'fecha',
         'razon'

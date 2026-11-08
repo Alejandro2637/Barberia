@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Collator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Collection\Collection;
 
 class horario_barberias extends Model
 {
@@ -28,7 +26,7 @@ class horario_barberias extends Model
         return[
             'start_dia'=>'datetime:H:i',
             'end_dia'=>'datetime:H:i',
-            'estado'=>'boolean',
+            'open'=>'boolean',
         ];
     }
 

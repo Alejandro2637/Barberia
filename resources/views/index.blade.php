@@ -4,9 +4,10 @@
 
 @section('content')
 <main class="bg-gray-50">
+
     <!-- Hero Section (Portada principal) -->
     <section class="relative bg-gradient-to-r from-gray-900 to-gray-800 text-white">
-        <div class="relative z-20 max-w-7xl px-2  lg:px-2 py-4 md:py-3 flex space-x-2">
+        <div class="relative z-20 max-w-7xl px-2 lg:px-2 py-4 md:py-3 flex space-x-2">
             <div class="text-center md:text-left md:w-2/3 ml-8">
                 <h1 class="text-4xl md:text-6xl font-bold font-serif mb-4">
                     Barbería <span class="text-amber-500">Jonathan</span>
@@ -24,13 +25,9 @@
                 </div>
             </div>
             <div>
-                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="barbero pelando un cliente" class=" w-56 h-auto object-center">
+                <img src="{{ asset('imagenes/barbero.jpeg') }}" alt="barbero pelando un cliente" class="w-56 h-auto object-center">
             </div>
         </div>
-        <!------------------------------- Imagen de fondo opcional (reemplazar por tu imagen) -------------------------------------------------------->
-       <!-- <div class="absolute inset-0 z-0">
-            <img src="#" alt="Barberías" class="w-full h-full object-cover">
-        </div>--->
     </section>
 
     <!-- Sección Nosotros (breve historia) -->
@@ -41,11 +38,11 @@
                     <h2 class="text-3xl font-bold font-serif text-gray-800 mb-4">Sobre nosotros</h2>
                     <div class="w-20 h-1 bg-amber-500 mb-6"></div>
                     <p class="text-gray-600 text-lg leading-relaxed">
-                        En Barbería Jonathan combinamos la tradición de las barberías clásicas con las últimas tendencias. 
+                        En Barbería Jonathan combinamos la tradición de las barberías clásicas con las últimas tendencias.
                         Más de 10 años ofreciendo cortes de cabello, arreglo de barba y cuidado personal para hombres.
                     </p>
                     <p class="text-gray-600 mt-4">
-                        Jonathan es expertos en técnicas de tijera, navaja y máquina. Te asesoramos para que encuentres 
+                        Jonathan es expertos en técnicas de tijera, navaja y máquina. Te asesoramos para que encuentres
                         el estilo que mejor te representa.
                     </p>
                     <div class="mt-8 flex gap-6">
@@ -60,7 +57,7 @@
                     </div>
                 </div>
                 <div class="rounded-lg overflow-hidden shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Barbería" class="w-64 h-auto object-cover ">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Barbería" class="w-64 h-auto object-cover">
                 </div>
             </div>
         </div>
@@ -88,6 +85,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Servicio 2 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
                     <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Arreglo de barba" class="h-48 w-full object-cover">
@@ -100,6 +98,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Servicio 3 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
                     <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Combo completo" class="h-48 w-full object-cover">
@@ -111,7 +110,7 @@
                             <a href="#reserva" class="text-sm bg-gray-800 hover:bg-amber-600 text-white px-4 py-2 rounded-full transition">Reservar</a>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     </section>
@@ -135,18 +134,18 @@
                         <x-input-label class="text-gray-700 font-medium text-center">Nuestra ubicación</x-input-label>
                     </div>
                 </div>
-        
-                <div class="bg-gray-100 p-6 rounded-xl shadow-md"> 
-                    <form action="{{ route('index.store') }}" method="POST" class="space-y-4" >
+
+                <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+                    <form action="{{ route('index.store') }}" method="POST" class="space-y-4">
                         @csrf
                         <div>
                             <label class="block text-gray-700 font-medium mb-1">Nombre completo</label>
                             <input type="text" name="name" class="w-full border border-gray-300 rounded-lg px-4 py-1" required>
                         </div>
                         <div>
-                           <label class="block text-gray-700 font-medium mb-1">Email</label>
-                           <input type="email" name="email" class="w-full border-gray-300 rounded-lg px-4 py-1" required>                          
-                        </div>                        
+                            <label class="block text-gray-700 font-medium mb-1">Email</label>
+                            <input type="email" name="email" class="w-full border border-gray-300 rounded-lg px-4 py-1" required>
+                        </div>
                         <div>
                             <label class="block text-gray-700 font-medium mb-1">Teléfono / WhatsApp</label>
                             <input type="tel" name="phone" class="w-full border border-gray-300 rounded-lg px-4 py-1" required>
@@ -159,55 +158,57 @@
                                 <option>Combo completo - $500</option>
                             </select>
                         </div>
+
                         <div class="flex justify-center">
-                            <div  class="mr-16">
+                            <div class="mr-16">
                                 <label class="block text-gray-700 font-medium mb-1">Fecha</label>
-                                <input type="date" name="fecha_cita" class="w-50% border border-gray-300 rounded-lg px-4 py-1" required>                           
+                                <input type="date" name="fecha_cita" class="w-full border border-gray-300 rounded-lg px-4 py-1" required>
                             </div>
                             <div class="ml-10">
                                 <label class="block text-gray-700 font-medium mb-1">Hora</label>
-                                <input type="time" name="hora_cita" class="w-50% border border-gray-300 rounded-lg px-4 py-1" required>
+                                <input type="time" name="hora_cita" class="w-full border border-gray-300 rounded-lg px-4 py-1" required>
                             </div>
                             <div class="ml-10 mt-5 content-center">
-                                <input type="checkbox" name="domicilio" class="p-2 rounded-lg border-b-slate-900 ">
-                                <label class=" text-gray-700 font-medium mb-1 inline">Domicilio</label>
+                                <input type="checkbox" id="domicilio" name="domicilio" value="1" class="p-2 rounded-lg border-b-slate-900">
+                                <label for="domicilio" class="text-gray-700 font-medium mb-1 inline">Domicilio</label>
                             </div>
                         </div>
-                        <!---domicilio--->
-                        <div class="direccion  hidden inline-block ">
-                            <div class="flex space-x-3 m-2">
-                                <div class=" flex">
+
+                        <!-- Dirección de domicilio (se muestra al marcar el checkbox) -->
+                        <div id="direccion" class="direccion hidden">
+                            <div class="flex flex-wrap gap-3 m-2">
+                                <div class="flex flex-col">
                                     <label class="block text-gray-700 m-1">Calle</label>
-                                    <input type="text" class="w-20 h-7 border-gray-300 rounded-lg px-1 py-1">
-                                </div> 
-                                <div class=" flex">
+                                    <input type="text" name="calle" class="w-24 h-7 border border-gray-300 rounded-lg px-1 py-1">
+                                </div>
+                                <div class="flex flex-col">
                                     <label class="block text-gray-700 m-1">entre</label>
-                                    <input type="text" class="w-20 h-7 border-gray-300 rounded-lg px-1 py-1">
-                                </div>                                                 
-                                <div class="flex">
-                                     <label class="block text-gray-700 m-1">Edif</label>
-                                     <input type="text" class="w-20 h-7  border-gray-300 rounded-lg  px-1 py-1 ">
-                                </div> 
-                                <div class=" flex">
-                                     <label class="block text-gray-700 m-1">Apto</label>
-                                     <input type="text" class="w-20 h-7 border-gray-300 rounded-lg  px-1 py-1 ">
-                               </div> 
+                                    <input type="text" name="entre_calles" class="w-24 h-7 border border-gray-300 rounded-lg px-1 py-1">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="block text-gray-700 m-1">Edif</label>
+                                    <input type="text" name="edificio" class="w-24 h-7 border border-gray-300 rounded-lg px-1 py-1">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="block text-gray-700 m-1">Apto</label>
+                                    <input type="text" name="apartamento" class="w-24 h-7 border border-gray-300 rounded-lg px-1 py-1">
+                                </div>
                             </div>
-                            <div class="flex space-x-2">
-                               <div ml-10 class="flex">
-                                   <label class="block text-gray-700 m-1">Rpto</label>
-                                   <input type="text" class="w-24 h-7 border-gray-300 rounded-lg  px-1 py-1">
-                               </div>  
-                               <div class=" flex">
-                                  <label class="block text-gray-700 m-1">Mpio</label>
-                                  <input type="text" class="w-28 h-7 border-gray-300 rounded-lg px-1 py-1">
-                               </div>
-                            </div>   
+                            <div class="flex flex-wrap gap-3 m-2">
+                                <div class="flex flex-col">
+                                    <label class="block text-gray-700 m-1">Rpto</label>
+                                    <input type="text" name="reparto" class="w-28 h-7 border border-gray-300 rounded-lg px-1 py-1">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="block text-gray-700 m-1">Mpio</label>
+                                    <input type="text" name="municipio" class="w-28 h-7 border border-gray-300 rounded-lg px-1 py-1">
+                                </div>
+                            </div>
                         </div>
+
                         <div class="flex justify-center">
                             <button type="submit" class="w-auto p-2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-full transition flex text-center">Solicitar turno</button>
                         </div>
-                        
                     </form>
                     <p class="text-xs text-gray-400 text-center mt-4">Te contactaremos a la brevedad para confirmar.</p>
                 </div>
@@ -237,8 +238,7 @@
         </div>
     </section>
 
-    <!-- Footer simple -->
-        <!-- Footer con redes sociales -->
+    <!-- Footer con redes sociales -->
     <footer class="bg-gray-900 text-white py-8">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex justify-between items-center">
@@ -247,7 +247,9 @@
                     <p>© 2025 Barbería Jonathan - Todos los derechos reservados.</p>
                     <p class="text-gray-400 text-sm mt-1">📍 Av. Siempreviva 123 | 📞 +53 58384595 | ✉️ contacto@barberiajonathan.cl</p>
                 </div>
+
                 <!-- Íconos sociales -->
+                <!-- IMPORTANTE: reemplaza los href="#" por los enlaces reales a tus redes sociales -->
                 <div class="flex justify-center md:justify-end space-x-6 m-3">
                     <a href="#" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-amber-400 transition" aria-label="YouTube">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -268,8 +270,19 @@
             </div>
         </div>
     </footer>
-<script>
 
-</script>
+    <script>
+        // Muestra/oculta el bloque de dirección de domicilio según el checkbox
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('domicilio');
+            const direccion = document.getElementById('direccion');
+
+            if (checkbox && direccion) {
+                checkbox.addEventListener('change', function () {
+                    direccion.classList.toggle('hidden', !checkbox.checked);
+                });
+            }
+        });
+    </script>
 </main>
 @endsection

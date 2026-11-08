@@ -6,7 +6,7 @@
             <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <x-application-logo class="block h-9 w-auto fill-current text-amber-400" />
+                    <img src="{{ asset('imagenes/logo1.png') }}" class="block h-12 w-auto rounded-full fill-current text-amber-400" alt="">
                 </div>
 
                 <!-- Desktop Navigation Links -->

@@ -6,7 +6,7 @@ use App\Enums\EstadoCitas;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\Str; 
+use Illuminate\Support\Str;
 use Override;
 
 class Citas extends Model
@@ -15,6 +15,7 @@ class Citas extends Model
 
     protected $fillable = [
        'name_cliente',
+       'email_cliente',
        'phone_cliente',
        'fecha_cita',
        'hora_cita',
@@ -23,7 +24,7 @@ class Citas extends Model
        'cancelado_at',
        'nota',
        'user_id',
-
+       'servicio_id',
     ];
 
     #[Override]
@@ -33,7 +34,7 @@ class Citas extends Model
             'fecha_cita'=>'date',
             'hora_cita'=>'time',
             'estado'=>EstadoCitas::class,
-            'cancelado-at'=>'datetime',
+            'cancelado_at'=>'datetime',
 
         ];
     }
@@ -47,8 +48,12 @@ class Citas extends Model
 
     protected $attributes = ['estado'=>'confirmado'];
 
-    public static function horarioDisponible( $fecha, $hora){
-       $existe=self::whereFechaCita($fecha)->whereHoraCita($hora)->where('estado','!=',EstadoCitas::Cancelado->value)->exists;
+    public static function horarioDisponible( $fecha, $hora, $exceptoId = null){
+       $q = self::whereFechaCita($fecha)->whereHoraCita($hora)->where('estado','!=',EstadoCitas::Cancelado->value);
+       if ($exceptoId) {
+           $q->where('id', '!=', $exceptoId);
+       }
+       $existe = $q->exists();
        return !$existe;
     }
 
@@ -64,8 +69,9 @@ class Citas extends Model
     public function cancelar(string $motivo=null):void
     {
         $this->update([
-            'estado'=>EstadoCitas::Cancelado->value 
-            'nota'=>$motivo    //cambiar nota a string en la base de datos    
+            'estado'=>EstadoCitas::Cancelado->value, 
+            'nota'=>$motivo,    //cambiar nota a string en la base de datos
+            'cancelado_at'=>now(),
         ]);
     }
 
@@ -75,5 +81,10 @@ class Citas extends Model
         $this->update([
             'estado'=>EstadoCitas::Confirmado->value 
         ]);
+    }
+
+    public function servicio(): BelongsTo
+    {
+        return $this->belongsTo(Servicio::class);
     }
 }
