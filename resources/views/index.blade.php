@@ -80,7 +80,7 @@
                         <h3 class="text-xl font-bold text-gray-800">Corte de cabello</h3>
                         <p class="text-gray-500 mt-2">Corte a tijera, máquina o degradado. Incluye lavado y asesoría de estilo.</p>
                         <div class="mt-4 flex justify-between items-center">
-                            <span class="text-amber-600 font-bold text-xl">$300</span>
+                            <span class="text-amber-600 font-bold text-xl">${{ number_format($servicios['Corte de cabello']->precio ?? 300, 0) }} <span class="text-sm font-normal text-gray-500">· {{ $servicios['Corte de cabello']->duracion ?? 30 }} min</span></span>
                             <a href="#reserva" class="text-sm bg-gray-800 hover:bg-amber-600 text-white px-4 py-2 rounded-full transition">Reservar</a>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                         <h3 class="text-xl font-bold text-gray-800">Arreglo de barba</h3>
                         <p class="text-gray-500 mt-2">Perfilado, recorte con navaja, toallas calientes y aceites esenciales.</p>
                         <div class="mt-4 flex justify-between items-center">
-                            <span class="text-amber-600 font-bold text-xl">$200</span>
+                            <span class="text-amber-600 font-bold text-xl">${{ number_format($servicios['Arreglo de barba']->precio ?? 200, 0) }} <span class="text-sm font-normal text-gray-500">· {{ $servicios['Arreglo de barba']->duracion ?? 20 }} min</span></span>
                             <a href="#reserva" class="text-sm bg-gray-800 hover:bg-amber-600 text-white px-4 py-2 rounded-full transition">Reservar</a>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                         <h3 class="text-xl font-bold text-gray-800">Combo completo</h3>
                         <p class="text-gray-500 mt-2">Corte + barba + mascarilla facial + cerveza o café.</p>
                         <div class="mt-4 flex justify-between items-center">
-                            <span class="text-amber-600 font-bold text-xl">$500</span>
+                            <span class="text-amber-600 font-bold text-xl">${{ number_format($servicios['Combo completo']->precio ?? 500, 0) }} <span class="text-sm font-normal text-gray-500">· {{ $servicios['Combo completo']->duracion ?? 45 }} min</span></span>
                             <a href="#reserva" class="text-sm bg-gray-800 hover:bg-amber-600 text-white px-4 py-2 rounded-full transition">Reservar</a>
                         </div>
                     </div>
@@ -153,9 +153,9 @@
                         <div>
                             <label class="block text-gray-700 font-medium mb-1">Servicio</label>
                             <select name="service" class="w-full border border-gray-300 rounded-lg px-4 py-1">
-                                <option>Corte de cabello - $300</option>
-                                <option>Arreglo de barba - $200</option>
-                                <option>Combo completo - $500</option>
+                                @foreach ($servicios as $servicio)
+                                    <option>{{ $servicio->nombre }} - ${{ number_format($servicio->precio, 0) }}</option>
+                                @endforeach
                             </select>
                         </div>
 

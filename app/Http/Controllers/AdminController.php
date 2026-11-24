@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\EstadoCitas;
 use App\Models\Citas;
 use App\Models\horario_barberias;
+use App\Models\Servicio;
 use App\Models\vacacioness;
 use Illuminate\Http\Request;
 
@@ -67,6 +68,34 @@ class AdminController extends Controller
         }
 
         return back()->with('succes', 'Horarios actualizados');
+    }
+
+    /**
+     * Precios y duración de los servicios (un solo barbero).
+     */
+    public function servicios()
+    {
+        $servicios = Servicio::orderBy('nombre')->get();
+
+        return view('admin.servicios', compact('servicios'));
+    }
+
+    public function actualizarServicios(Request $request)
+    {
+        $data = $request->validate([
+            'servicios' => 'required|array',
+            'servicios.*.precio' => 'required|numeric|min:0',
+            'servicios.*.duracion' => 'required|integer|min:5|max:240',
+        ]);
+
+        foreach ($data['servicios'] as $id => $s) {
+            Servicio::where('id', $id)->update([
+                'precio' => $s['precio'],
+                'duracion' => $s['duracion'],
+            ]);
+        }
+
+        return back()->with('succes', 'Precios actualizados');
     }
 
     /**
