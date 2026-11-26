@@ -18,6 +18,7 @@
                 <a href="{{ route('admin.horarios') }}" class="bg-gray-800 text-white px-4 py-2 rounded">Horarios</a>
                 <a href="{{ route('admin.vacaciones') }}" class="bg-gray-800 text-white px-4 py-2 rounded">Días bloqueados</a>
                 <a href="{{ route('admin.servicios') }}" class="bg-gray-800 text-white px-4 py-2 rounded">Servicios y precios</a>
+                <a href="{{ route('admin.datos') }}" class="bg-gray-800 text-white px-4 py-2 rounded">Datos y dirección</a>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

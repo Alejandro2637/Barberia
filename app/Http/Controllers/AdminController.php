@@ -6,6 +6,7 @@ use App\Enums\EstadoCitas;
 use App\Models\Citas;
 use App\Models\horario_barberias;
 use App\Models\Servicio;
+use App\Models\DatosNegocio;
 use App\Models\vacacioness;
 use Illuminate\Http\Request;
 
@@ -96,6 +97,30 @@ class AdminController extends Controller
         }
 
         return back()->with('succes', 'Precios actualizados');
+    }
+
+    /**
+     * Datos del negocio (dirección de la portada y el mapa).
+     */
+    public function datos()
+    {
+        $datos = DatosNegocio::first();
+
+        return view('admin.datos', compact('datos'));
+    }
+
+    public function actualizarDatos(Request $request)
+    {
+        $data = $request->validate([
+            'direccion' => 'nullable|string|max:255',
+        ]);
+
+        DatosNegocio::updateOrCreate(
+            ['id' => 1],
+            ['direccion' => $data['direccion'] ?? null]
+        );
+
+        return back()->with('succes', 'Dirección actualizada');
     }
 
     /**

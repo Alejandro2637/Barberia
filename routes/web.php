@@ -5,12 +5,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SolicitudController;
 use App\Models\Servicio;
+use App\Models\DatosNegocio;
+use App\Models\horario_barberias;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $servicios = Servicio::orderBy('id')->get()->keyBy('nombre');
+    $horarios = horario_barberias::orderBy('dias_semana')->get()->keyBy('dias_semana');
+    $dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    $hoy = $horarios[now()->dayOfWeek] ?? null;
+    $datos = DatosNegocio::first();
 
-    return view('index', compact('servicios'));
+    return view('index', compact('servicios', 'horarios', 'dias', 'hoy', 'datos'));
 });
 Route::post('index/store', [SolicitudController::class, 'store'])-> name('index.store');
 
@@ -44,6 +50,10 @@ Route::middleware('auth')->group(function () {
     // Precios y duración de los servicios
     Route::get('/admin/servicios', [AdminController::class, 'servicios'])->name('admin.servicios');
     Route::post('/admin/servicios', [AdminController::class, 'actualizarServicios'])->name('admin.servicios.update');
+
+    // Datos del negocio (dirección que se muestra en la portada y el mapa)
+    Route::get('/admin/datos', [AdminController::class, 'datos'])->name('admin.datos');
+    Route::post('/admin/datos', [AdminController::class, 'actualizarDatos'])->name('admin.datos.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

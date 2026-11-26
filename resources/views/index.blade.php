@@ -128,10 +128,37 @@
                     <ul class="space-y-3 text-gray-600">
                         <li class="flex items-center gap-2">✂️ Cortes sin turno previo (sujeto a disponibilidad)</li>
                         <li class="flex items-center gap-2">⏱️ Turnos cada 45 minutos</li>
-                        <li class="flex items-center gap-2">📍 Av. Siempreviva 123, Local 5</li>
+                        <li class="flex items-center gap-2">📍 {{ $datos?->direccion ?? 'Av. Siempreviva 123, Local 5' }}</li>
                     </ul>
-                    <div class="mt-6 h-48 min-h-auto rounded-md bg-gray-100 font-semibold content-between">
-                        <x-input-label class="text-gray-700 font-medium text-center">Nuestra ubicación</x-input-label>
+                    <div class="mt-6 rounded-md bg-gray-100 p-4">
+                        <p class="text-gray-700 font-medium text-center">Nuestra ubicación</p>
+                        <p class="text-gray-600 text-center mt-1">📍 {{ $datos?->direccion ?? 'Av. Siempreviva 123, Local 5' }}</p>
+                        <p class="text-center mt-2">
+                            @if ($hoy && $hoy->open && $hoy->start_dia && $hoy->end_dia)
+                                <span class="text-green-700 font-semibold">Abierto hoy: {{ $hoy->start_dia->format('H:i') }} – {{ $hoy->end_dia->format('H:i') }}</span>
+                            @else
+                                <span class="text-red-600 font-semibold">Cerrado hoy</span>
+                            @endif
+                        </p>
+                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                            @foreach ($dias as $i => $nombreDia)
+                                <li class="flex justify-between">
+                                    <span>{{ $nombreDia }}</span>
+                                    <span>
+                                        @if (isset($horarios[$i]) && $horarios[$i]->open && $horarios[$i]->start_dia && $horarios[$i]->end_dia)
+                                            {{ $horarios[$i]->start_dia->format('H:i') }} – {{ $horarios[$i]->end_dia->format('H:i') }}
+                                        @elseif (isset($horarios[$i]))
+                                            Cerrado
+                                        @else
+                                            —
+                                        @endif
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @if ($datos?->direccion)
+                            <iframe src="https://www.google.com/maps?q={{ urlencode($datos->direccion) }}&output=embed" class="w-full h-48 rounded-md mt-3" loading="lazy"></iframe>
+                        @endif
                     </div>
                 </div>
 
@@ -245,7 +272,7 @@
                 <!-- Texto copyright -->
                 <div class="text-center md:text-left">
                     <p>© 2025 Barbería Jonathan - Todos los derechos reservados.</p>
-                    <p class="text-gray-400 text-sm mt-1">📍 Av. Siempreviva 123 | 📞 +53 58384595 | ✉️ contacto@barberiajonathan.cl</p>
+                    <p class="text-gray-400 text-sm mt-1">📍 {{ $datos?->direccion ?? 'Av. Siempreviva 123' }} | 📞 +53 58384595 | ✉️ contacto@barberiajonathan.cl</p>
                 </div>
 
                 <!-- Íconos sociales -->
