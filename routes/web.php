@@ -4,10 +4,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SolicitudController;
+use App\Models\Servicio;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    $servicios = Servicio::orderBy('id')->get()->keyBy('nombre');
+
+    return view('index', compact('servicios'));
 });
 Route::post('index/store', [SolicitudController::class, 'store'])-> name('index.store');
 
@@ -37,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/vacaciones', [AdminController::class, 'vacaciones'])->name('admin.vacaciones');
     Route::post('/admin/vacaciones', [AdminController::class, 'guardarVacacion'])->name('admin.vacaciones.store');
     Route::delete('/admin/vacaciones/{vacacion}', [AdminController::class, 'eliminarVacacion'])->name('admin.vacaciones.destroy');
+
+    // Precios y duración de los servicios
+    Route::get('/admin/servicios', [AdminController::class, 'servicios'])->name('admin.servicios');
+    Route::post('/admin/servicios', [AdminController::class, 'actualizarServicios'])->name('admin.servicios.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
