@@ -43,7 +43,7 @@
 
                     @if ($datos?->direccion)
                         <p class="text-gray-700 font-medium mt-8 mb-2">Así se ve en el mapa:</p>
-                        <iframe src="https://www.google.com/maps?q={{ urlencode($datos->direccion) }}&output=embed" class="w-full h-64 rounded-md" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps?q={{ urlencode($datos->direccion) }}&output=embed" class="w-full h-64 rounded-md" loading="lazy" referrerpolicy="no-referrer"></iframe>
                     @endif
                 </div>
             </div>

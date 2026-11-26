@@ -157,7 +157,7 @@
                             @endforeach
                         </ul>
                         @if ($datos?->direccion)
-                            <iframe src="https://www.google.com/maps?q={{ urlencode($datos->direccion) }}&output=embed" class="w-full h-48 rounded-md mt-3" loading="lazy"></iframe>
+                            <iframe src="https://www.google.com/maps?q={{ urlencode($datos->direccion) }}&output=embed" class="w-full h-48 rounded-md mt-3" loading="lazy" referrerpolicy="no-referrer"></iframe>
                         @endif
                     </div>
                 </div>

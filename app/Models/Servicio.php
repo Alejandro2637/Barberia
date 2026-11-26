@@ -41,7 +41,11 @@ class Servicio extends Model
 
         $nombre = trim(preg_replace('/\s*-\s*\$?\s*[\d.,]+$/', '', $texto));
 
+        // Igualdad exacta primero. El fallback LIKE escapa % _ y \
+        // para que no actúen como comodines y resuelvan otro servicio.
+        $escapado = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $nombre);
+
         return static::where('nombre', $nombre)->first()
-            ?? static::where('nombre', 'like', '%'.$nombre.'%')->first();
+            ?? static::where('nombre', 'like', '%'.$escapado.'%')->first();
     }
 }

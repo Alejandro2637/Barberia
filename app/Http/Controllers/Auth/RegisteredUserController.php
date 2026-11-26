@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -36,16 +37,25 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // El registro siempre crea CLIENTE. El rol no viene del
+        // formulario y 'role' no está en $fillable: se asigna directo.
+        // El barbero se promueve a mano (tinker / seeder):
+        //   $u = User::where('email', '...')->first();
+        //   $u->role = UserRole::Barber; $u->save();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $user->role = UserRole::Cliente;
+        $user->save();
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Un cliente no es barbero: no va al dashboard (403),
+        // va a la portada y debe verificar su correo primero.
+        return redirect(route('verification.notice'));
     }
 }
