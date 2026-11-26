@@ -48,6 +48,13 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        // No quedarse sin barbero: si es el último, no se borra.
+        if ($user->isBarber() && \App\Models\User::where('role', \App\Enums\UserRole::Barber)->count() <= 1) {
+            return Redirect::route('profile.edit')->withErrors(
+                ['userDeletion' => 'No puedes eliminar la única cuenta de barbero. Promueve a otro usuario primero.']
+            );
+        }
+
         Auth::logout();
 
         $user->delete();

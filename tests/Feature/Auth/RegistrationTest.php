@@ -26,6 +26,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        // El registro crea cliente: va a verificar el correo,
+        // no al dashboard (que es solo del barbero).
+        $response->assertRedirect(route('verification.notice', absolute: false));
     }
 }

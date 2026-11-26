@@ -1,19 +1,17 @@
 <?php
-namespace App\Enums;
 
-use GuzzleHttp\Exception\ClientException;
+namespace App\Enums;
 
 enum UserRole: string
 {
-    case Barber='barber';
-    case Cliente= 'Client';
+    case Barber = 'barber';
+    case Cliente = 'cliente';
 
-    public function label()
+    public function label(): string
     {
-        return match($this){
-            self::Barber=>'Barbero',
-            self::Cliente=>'Cliente'
+        return match ($this) {
+            self::Barber => 'Barbero',
+            self::Cliente => 'Cliente',
         };
     }
 }
-

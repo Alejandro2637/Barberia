@@ -28,7 +28,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // El dashboard es solo del barbero; un cliente que entra
+        // iría a un 403. Cada uno va a su sitio.
+        $destino = $request->user()->isBarber()
+            ? route('dashboard', absolute: false)
+            : url('/');
+
+        return redirect()->intended($destino);
     }
 
     /**

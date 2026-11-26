@@ -11,6 +11,9 @@
     @if ($yaCancelada)
         <h1 class="text-2xl font-bold text-gray-700 mb-4">Esta cita ya estaba cancelada</h1>
         <p class="text-sm text-gray-600">No se realizó ningún cambio.</p>
+    @elseif ($noCancelada ?? false)
+        <h1 class="text-2xl font-bold text-gray-700 mb-4">Esta cita ya no se puede cancelar</h1>
+        <p class="text-sm text-gray-600">Solo se pueden cancelar citas confirmadas y futuras. Si necesitas ayuda, contacta con la barbería.</p>
     @else
         <h1 class="text-2xl font-bold text-red-700 mb-4">Cita cancelada</h1>
         <p class="text-sm text-gray-600">
